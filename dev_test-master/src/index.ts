@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
-import { DataSource } from 'typeorm';
+import { DataSource, getRepository } from 'typeorm';
 import { User } from './entity/User';
 import { Post } from './entity/Post';
 
@@ -33,7 +33,7 @@ const initializeDatabase = async () => {
 
 initializeDatabase();
 
-app.post('/users', async (req, res) => {
+app.post('/users', async (req: { body: { firstName: string; lastName: string; email: string; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: User): void; new(): any; }; }; }) => {
 // Crie o endpoint de users
   const user = new User();
         user.firstName = req.body.firstName;
@@ -45,7 +45,7 @@ app.post('/users', async (req, res) => {
         res.status(201).json(user);
 });
 
-app.post('/posts', async (req, res) => {
+app.post('/posts', async (req: { body: { title: string; description: string; userId: User; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: Post): void; new(): any; }; }; }) => {
 // Crie o endpoint de posts
         const post = new Post();
         post.title = req.body.title;
@@ -61,3 +61,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+function setTimeout(resolve: (value: unknown) => void, ms: number): void {
+  throw new Error('Function not implemented.');
+}

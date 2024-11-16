@@ -7,14 +7,14 @@ import { ManyToOne } from "typeorm";
 @Entity()
 export class Post {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id: number | undefined;
 
-    @Column({ length: 100 })
-    title!: string;
+  @Column({ type: "varchar", length: 100 })
+  title: string | undefined;
 
-    @Column({ length: 100 })
-    description!: string;
+  @Column({ type: "varchar", length: 100 })
+  description: string | undefined;
 
-    @ManyToOne(() => User, (user) => user.posts)
-    user!: User;
+  @ManyToOne(() => User, (user) => user.posts, { onDelete: "CASCADE" })
+  user: User | undefined;
 }

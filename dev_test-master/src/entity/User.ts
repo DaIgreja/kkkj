@@ -6,17 +6,17 @@ import { OneToMany } from "typeorm";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    id!: number;
+    id: number | undefined;
 
-    @Column({ length: 100 })
-    firstName!: string;
+  @Column({ type: "varchar", length: 100 })
+  firstName: string | undefined;
 
-    @Column({ length: 100 })
-    lastName!: string;
+  @Column({ type: "varchar", length: 100 })
+  lastName: string | undefined;
 
-    @Column({ length: 100 })
-    email!: string;
+  @Column({ type: "varchar", length: 100, unique: true })
+  email: string | undefined;
 
-    @OneToMany(() => Post, (post) => post.user)
-    posts!: Post[];
+  @OneToMany(() => Post, (post: { user: any; }) => post.user)
+  posts: Post[] | undefined;
 }
